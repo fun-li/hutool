@@ -14,7 +14,9 @@ import org.bouncycastle.jcajce.provider.asymmetric.util.EC5Util;
 import org.bouncycastle.jcajce.provider.asymmetric.util.ECUtil;
 import org.bouncycastle.jce.spec.ECNamedCurveSpec;
 import org.bouncycastle.jce.spec.ECParameterSpec;
+import org.bouncycastle.jce.spec.ECPrivateKeySpec;
 import org.bouncycastle.math.ec.ECCurve;
+import org.bouncycastle.util.BigIntegers;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,6 +44,27 @@ public class BCUtil {
 	 */
 	public static byte[] encodeECPrivateKey(PrivateKey privateKey) {
 		return ((BCECPrivateKey) privateKey).getD().toByteArray();
+	}
+
+	/**
+	 * 解码恢复EC私钥,支持Base64和Hex编码,（基于BouncyCastle）
+	 *
+	 * @param d         私钥d值
+	 * @param curveName EC曲线名
+	 * @return 私钥
+	 * @since 5.8.36
+	 */
+	public static PrivateKey decodeECPrivateKey(final byte[] d, final String curveName) {
+		final X9ECParameters x9ECParameters = ECUtil.getNamedCurveByName(curveName);
+		final ECParameterSpec ecSpec = new ECParameterSpec(
+			x9ECParameters.getCurve(),
+			x9ECParameters.getG(),
+			x9ECParameters.getN(),
+			x9ECParameters.getH()
+		);
+
+		final ECPrivateKeySpec privateKeySpec = new ECPrivateKeySpec(BigIntegers.fromUnsignedByteArray(d), ecSpec);
+		return KeyUtil.generatePrivateKey("EC", privateKeySpec);
 	}
 
 	/**
