@@ -117,6 +117,7 @@ public interface JSON extends Cloneable, Serializable, IJSONTypeConverter {
 	 *
 	 * @param expression 表达式
 	 * @param targetType 返回值类型
+	 * @param <T>        获取对象类型
 	 * @return 对象
 	 * @see BeanPath#get(Object)
 	 * @since 5.8.34
