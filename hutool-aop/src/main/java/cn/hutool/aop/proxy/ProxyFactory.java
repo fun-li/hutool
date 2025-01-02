@@ -59,7 +59,13 @@ public abstract class ProxyFactory implements Serializable {
 	 * @return 代理对象
 	 */
 	public static <T> T createProxy(T target, Aspect aspect) {
-		return create().proxy(target, aspect);
+		ProxyFactory factory = create();
+		if(null == factory){
+			// issue#IBF20Z
+			// 可能的空指针问题
+			factory = JdkProxyFactory.INSTANCE;
+		}
+		return factory.proxy(target, aspect);
 	}
 
 	/**

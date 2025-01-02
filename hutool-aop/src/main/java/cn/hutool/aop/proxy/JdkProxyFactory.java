@@ -12,6 +12,11 @@ import cn.hutool.aop.interceptor.JdkInterceptor;
 public class JdkProxyFactory extends ProxyFactory {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * 获取单例
+	 */
+	public static JdkProxyFactory INSTANCE = new JdkProxyFactory();
+
 	@Override
 	public <T> T proxy(T target, Aspect aspect) {
 		return ProxyUtil.newProxyInstance(//
