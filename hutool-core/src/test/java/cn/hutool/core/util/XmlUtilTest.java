@@ -320,6 +320,7 @@ public class XmlUtilTest {
 		final String a = "<>";
 		final String escape = XmlUtil.escape(a);
 		Console.log(escape);
+		Console.log(XmlUtil.escape("中文“双引号”"));
 	}
 
 	@Test
