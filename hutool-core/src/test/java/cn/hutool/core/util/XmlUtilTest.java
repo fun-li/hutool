@@ -7,7 +7,7 @@ import cn.hutool.core.lang.Console;
 import cn.hutool.core.map.MapBuilder;
 import cn.hutool.core.map.MapUtil;
 import lombok.Data;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
@@ -21,6 +21,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * {@link XmlUtil} 工具类
@@ -319,8 +321,8 @@ public class XmlUtilTest {
 	public void escapeTest(){
 		final String a = "<>";
 		final String escape = XmlUtil.escape(a);
-		Console.log(escape);
-		Console.log(XmlUtil.escape("中文“双引号”"));
+		Assertions.assertEquals("&lt;&gt;", escape);
+		Assertions.assertEquals("中文“双引号”", XmlUtil.escape("中文“双引号”"));
 	}
 
 	@Test
