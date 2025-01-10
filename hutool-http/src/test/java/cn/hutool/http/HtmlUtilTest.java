@@ -78,6 +78,29 @@ public class HtmlUtilTest {
 	}
 
 	@Test
+	public void cleanEmptyTag() {
+		String str = "<p></p><div></div>";
+		String result = HtmlUtil.cleanEmptyTag(str);
+		assertEquals("", result);
+
+		str = "<p>TEXT</p><div></div>";
+		result = HtmlUtil.cleanEmptyTag(str);
+		assertEquals("<p>TEXT</p>", result);
+
+		str = "<p></p><div>TEXT</div>";
+		result = HtmlUtil.cleanEmptyTag(str);
+		assertEquals("<div>TEXT</div>", result);
+
+		str = "<p>TEXT</p><div>TEXT</div>";
+		result = HtmlUtil.cleanEmptyTag(str);
+		assertEquals("<p>TEXT</p><div>TEXT</div>", result);
+
+		str = "TEXT<p></p><div></div>TEXT";
+		result = HtmlUtil.cleanEmptyTag(str);
+		assertEquals("TEXTTEXT", result);
+	}
+
+	@Test
 	public void unwrapHtmlTagTest() {
 		//非闭合标签
 		String str = "pre<img src=\"xxx/dfdsfds/test.jpg\">";

@@ -24,6 +24,7 @@ public class HtmlUtil {
 	public static final String GT = StrUtil.HTML_GT;
 
 	public static final String RE_HTML_MARK = "(<[^<]*?>)|(<[\\s]*?/[^<]*?>)|(<[^<]*?/[\\s]*?>)";
+	public static final String RE_HTML_EMPTY_MARK = "<(\\w+)([^>]*)>\\s*</\\1>";
 	public static final String RE_SCRIPT = "<[\\s]*?script[^>]*?>.*?<[\\s]*?\\/[\\s]*?script[\\s]*?>";
 
 	private static final char[][] TEXT = new char[256][];
@@ -84,6 +85,17 @@ public class HtmlUtil {
 	 */
 	public static String cleanHtmlTag(String content) {
 		return content.replaceAll(RE_HTML_MARK, "");
+	}
+
+	/**
+	 * 清除所有HTML空标签<br>
+	 * 例如：&lt;p&gt;&lt;/p&gt;
+	 *
+	 * @param content 文本
+	 * @return 清除空标签后的文本
+	 */
+	public static String cleanEmptyTag(String content) {
+		return content.replaceAll(RE_HTML_EMPTY_MARK, "");
 	}
 
 	/**
