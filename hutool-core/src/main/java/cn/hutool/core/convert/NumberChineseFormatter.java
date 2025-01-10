@@ -147,7 +147,6 @@ public class NumberChineseFormatter {
 		}
 
 		if ( 0 == fen) {
-			//无小数部分的金额结尾
 			if (isMoneyMode) {
 				chineseStr.append("整");
 			}
