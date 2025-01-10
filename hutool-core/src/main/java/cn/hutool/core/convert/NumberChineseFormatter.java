@@ -112,7 +112,7 @@ public class NumberChineseFormatter {
 		yuan = yuan / 10;
 
 		// 元
-		if (false == isMoneyMode || 0 != yuan) {
+		if (!isMoneyMode || 0 != yuan) {
 			// 金额模式下，无需“零元”
 			chineseStr.append(longToChinese(yuan, isUseTraditional));
 			if (isMoneyMode) {
@@ -129,14 +129,14 @@ public class NumberChineseFormatter {
 		}
 
 		// 小数部分
-		if (false == isMoneyMode) {
+		if (!isMoneyMode) {
 			chineseStr.append("点");
 		}
 
 		// 角
 		if (0 == yuan && 0 == jiao) {
 			// 元和角都为0时，只有非金额模式下补“零”
-			if (false == isMoneyMode) {
+			if (!isMoneyMode) {
 				chineseStr.append("零");
 			}
 		} else {
@@ -146,12 +146,18 @@ public class NumberChineseFormatter {
 			}
 		}
 
-		// 分
-		if (0 != fen) {
-			chineseStr.append(numberToChinese(fen, isUseTraditional));
+		if ( 0 == fen) {
+			//无小数部分的金额结尾
 			if (isMoneyMode) {
-				chineseStr.append("分");
+				chineseStr.append("整");
 			}
+			return chineseStr.toString();
+		}
+
+		// 分
+		chineseStr.append(numberToChinese(fen, isUseTraditional));
+		if (isMoneyMode) {
+			chineseStr.append("分");
 		}
 
 		return chineseStr.toString();
